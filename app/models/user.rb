@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_many :sended_messages,   class_name: 'Message', foreign_key: :addresser_id
   has_many :received_messages, class_name: 'Message', foreign_key: :addressee_id
 
-  def has_messages_from id
-    received_messages.where addresser_id: id
+  def has_messages_from
+    received_messages.group(:addresser_id)
   end
 
 end

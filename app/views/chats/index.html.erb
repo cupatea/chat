@@ -2,5 +2,5 @@
 <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
 <h3> Chat list</h3>
 <% @users.each do |user| %>
-<div><%= link_to user.name, chat_path(user.id) %> [<%=current_user.has_messages_from(user.id).count %>]</div>
+<div><%= link_to user.name, chat_path(user.id) %> [<%= @messages_count[user.id] %>]</div>
 <% end %>

@@ -3,6 +3,7 @@ class ChatsController < ApplicationController
 
   def index
     @users = User.all - [ current_user ]
+    @messages_count = current_user.has_messages_from.count
   end
 
   def show
