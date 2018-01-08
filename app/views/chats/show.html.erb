@@ -1,7 +1,10 @@
 <h1>Chat with <%= @addressee.name %></h1>
-<% @messages.each do |message|  %>
-  <div> <strong><%= message.addresser.name %>:</strong> <%= message.body %> </div>
-<% end %>
+
+<div id='<%= "stream:#{current_user.id}-#{@addressee.id}"%>'>
+  <% @messages.each do |message|  %>
+    <%= render message %>
+  <% end %>
+</div>
 
 
 <%= form_for @new_message, remote: true do |form| %>

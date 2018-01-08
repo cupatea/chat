@@ -5,6 +5,7 @@ class MessagesController < ApplicationController
     message = Message.new _permitter_message_params
     message.addresser = current_user
     message.save
+    MessageRelayJob.perform_later(message)
   end
 
   private
