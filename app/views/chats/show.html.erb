@@ -1,0 +1,15 @@
+<h1>Chat with <%= @addressee.name %></h1>
+<% @messages.each do |message|  %>
+  <div> <strong><%= message.addresser.name %>:</strong> <%= message.body %> </div>
+<% end %>
+
+
+<%= form_for @new_message, remote: true do |form| %>
+  <div class="field">
+    <%= form.text_area :body, id: :message_body %>
+    <%= form.hidden_field :addressee_id %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
