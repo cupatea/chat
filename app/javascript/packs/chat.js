@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import Input from '../components/Input'
-import List from '../components/List'
+import MessagesList from '../components/MessagesList'
+import Header from '../components/Header'
+import Sidebar from '../components/Sidebar'
 
 axios.defaults.headers.common = {
   'X-CSRF-TOKEN' : document.getElementsByName('csrf-token')[0].content
@@ -13,13 +15,17 @@ class Chat extends Component {
   constructor(props){
     super(props)
     this.state = {
-      adresserId: null,
+      chatHeader: '',
       messagesList: [],
+      usersList: [],
+      countersObject: {},
     }
   }
   componentDidMount(){
     this.fetchMessages()
     this.createMessagesSubscription()
+    this.fetchUsers()
+    this.fetchCounters()
   }
   createMessagesSubscription(){
     App.messages = App.cable.subscriptions.create('MessagesChannel',{
@@ -35,6 +41,21 @@ class Chat extends Component {
     }))
     .catch(error => console.log(error))
   }
+  fetchUsers(){
+    axios.get(`${this.props.roomId}/users`)
+    .then(response => this.setState({
+      usersList: response.data,
+      chatHeader: response.data.find(user => user.id == this.props.roomId).name
+    }))
+    .catch(error => console.log(error))
+  }
+  fetchCounters(){
+    axios.get(`${this.props.roomId}/counter`)
+    .then(response => this.setState({
+      countersObject: response.data,
+    }))
+    .catch(error => console.log(error))
+  }
   handleSubmit(messageText,addressee_id ){
     axios.post(`/messages`,{
       message:{
@@ -45,16 +66,25 @@ class Chat extends Component {
   }
   render(){
     return(
-      <div className = 'container-fluid'>
-        <List
-          messages = { this.state.messagesList }
-          userId = { this.props.userId }
+      <div className = 'chat-container'>
+        <Sidebar
+          users = { this.state.usersList }
+          counters = { this.state.countersObject }
         />
-        <Input
-          placeholder = 'Write a message...'
-          submitHandler = { this.handleSubmit }
-          roomId = { this.props.roomId }
-        />
+        <div className = 'messages-container'>
+          <Header
+            name = { this.state.chatHeader }
+          />
+          <MessagesList
+            messages = { this.state.messagesList }
+            userId = { this.props.userId }
+          />
+          <Input
+            placeholder = 'Write a message...'
+            submitHandler = { this.handleSubmit }
+            roomId = { this.props.roomId }
+          />
+        </div>
       </div>
     )
   }

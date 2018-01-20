@@ -1,8 +1,98 @@
-//List
+//Chat
+.chat-container{
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+
+}
+
+.messages-container{
+  display: flex;
+  flex-basis: calc(100% - 300px);
+  justify-content: center;
+  overflow: auto;
+  overflow-y: scroll;
+}
+
+//Sidebar
+.sidebar-container {
+  background-color: #fafafa;
+  flex-basis: 300px;
+  color: white;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-left: 30px;
+  overflow-y: scroll;
+}
+
+//User
+.user-container {
+  display: flex;
+  margin: 3px 0;
+}
+.user-circle-avatar {
+  width: 50px;
+  height: 50px;
+  z-index: 300;
+  border-radius: 50%;
+  background-color: #3f68af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-weight: 400;
+}
+.user-name{
+  display: flex;
+  align-items: center;
+  height: 50px;
+  z-index: 300;
+  padding-left: 10px;
+  font-size: 16px;
+  font-weight: 300;
+  color: black;
+}
+
+.user-counter{
+  font-size: 10px;
+  font-weight: 300;
+  font-style: italic;
+  width: 20px;
+}
+
+//Header
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0px;
+  left: 15px;
+  right: 15px;
+  width: 100%;
+  height: 50px;
+  background: white;
+  z-index: 100;
+  padding-left: 300px;
+  border-bottom: 1px solid #fafafa;
+}
+
+.header-title {
+  text-align: center;
+}
+
+//MessagesList
 .messages-list {
   margin-top: 60px;
-  padding-bottom: 50px;
   margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 50px;
 }
 
 // Message
@@ -48,8 +138,8 @@
 .input-container {
   position: fixed;
   bottom: 0px;
-  left: 0px;
-  right: 0px;
+  left: 15px;
+  right: 15px;
   width: 100%;
   height: 50px;
   z-index: 99;
@@ -60,6 +150,7 @@
   padding-right: 55px;
   color: #666;
   font-weight: 300;
+  margin-left: 300px;
 }
 
 .attachment {
@@ -70,6 +161,7 @@
   border: none;
   background: #fafafa;
   z-index: 100;
+  margin-left: 315px;
 }
 
 .send {
