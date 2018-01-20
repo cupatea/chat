@@ -1,3 +1,2 @@
-<h1>Chat with <%= @addressee.name %></h1>
 <%= javascript_pack_tag 'chat' %>
-<div id="chat-room" data-room-id='<%= @addressee.id %>' data-user-id='<%= current_user.id %>'></div>
+<div id="chat-room" data-room-id='<%= params[:id] %>' data-user-id='<%= current_user.id %>'></div>
