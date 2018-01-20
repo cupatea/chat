@@ -13,13 +13,15 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'devise'
 gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 3.0'
+gem "bootstrap-sass", "~> 3.3"
+
 
 group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'faker'
 end
 
 group :development do
@@ -30,6 +32,3 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# Added at 2018-01-20 02:26:10 +0200 by cupatea:
-gem "bootstrap-sass", "~> 3.3"
