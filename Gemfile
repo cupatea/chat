@@ -30,3 +30,6 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Added at 2018-01-20 02:26:10 +0200 by cupatea:
+gem "bootstrap-sass", "~> 3.3"
