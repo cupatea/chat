@@ -1,18 +1,5 @@
 <h1>Chat with <%= @addressee.name %></h1>
-
-<div id='<%= "stream:#{current_user.id}-#{@addressee.id}"%>'>
-  <% @messages.each do |message|  %>
-    <%= render message %>
-  <% end %>
+<div class="container-fluid">
+  <%= javascript_pack_tag 'chat' %>
+  <div id="chat-room" data-room-id='<%= @addressee.id %>' data-user-id='<%= current_user.id %>'></div>
 </div>
-
-
-<%= form_for @new_message, remote: true do |form| %>
-  <div class="field">
-    <%= form.text_area :body, id: :message_body %>
-    <%= form.hidden_field :addressee_id %>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
