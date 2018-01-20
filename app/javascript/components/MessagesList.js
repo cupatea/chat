@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Message from './Message'
 
-class List extends Component {
+class MessagesList extends Component {
   componentDidMount(){
     this.scrollToBottom()
   }
@@ -43,14 +43,14 @@ class List extends Component {
   }
 }
 
-List.defaultProps = {
+MessagesList.defaultProps = {
   messages: [],
   userId: null,
 }
 
-List.propTypes = {
+MessagesList.propTypes = {
   messages: PropTypes.array,
   userId: PropTypes.string
 }
 
-export default List
+export default MessagesList
