@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :chats, only: [:index, :show] do
     member do
-      get 'messages'
+      get :messages
+      get :users
+      get :counter
     end
   end
   resources :messages, only: [:create]
