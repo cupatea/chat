@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
 
   def create
     message = Message.new _permitter_message_params
-    message.addresser = current_user
+    message.addresser_id = current_user.id
     message.save
     MessageRelayJob.perform_later(message)
   end
