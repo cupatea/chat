@@ -40,7 +40,6 @@ class Chat extends Component {
     .catch(error => console.log(error))
   }
   handleChange(event){
-    console.log('CHANGE HANDELED ')
     this.setState({ messageText: event.target.value })
   }
   handleEnterKeyPress(event){
@@ -61,7 +60,6 @@ class Chat extends Component {
         this.setState({ messageText: '' })
       )
       .catch(error => console.log(error))
-
     }
   }
   scrollToBottom() {
@@ -113,7 +111,8 @@ class Chat extends Component {
         <div
           className = 'message-list'
           ref = { node => this.messagesList = node }
-          children = { this.renderMessages() }/>
+          children = { this.renderMessages() }
+        />
       </div>
     )
   }
@@ -124,13 +123,15 @@ Chat.propTypes = {
   userId: PropTypes.string
 }
 
-document.addEventListener('turbolinks:load', () => {
-  const node = document.getElementById('chat-room')
-  node &&
-  ReactDOM.render(
-    <Chat
-      roomId = { node.getAttribute('data-room-id') }
-      userId = { node.getAttribute('data-user-id') }
-    />, node
-  )
+document.addEventListener('DOMContentLoaded', () => {
+  let node = document.getElementById('chat-room')
+  if(node){
+    ReactDOM.render(
+      <Chat
+        roomId = { node.getAttribute('data-room-id') }
+        userId = { node.getAttribute('data-user-id') }
+      />, node
+    )
+  }
+
 })
