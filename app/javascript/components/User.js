@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const User = props => (
-  <div className = 'user-container'>
+  <div className = { `user-container${ props.current ? ' active' : '' }` }>
     <div className = 'user-circle-avatar' >
       { props.name.charAt(0) }
     </div>
@@ -16,12 +16,14 @@ const User = props => (
 User.defaultProps = {
   name: '',
   id: '',
+  current: false,
 }
 
 User.propTypes = {
   name: PropTypes.string,
   id: PropTypes.number,
   counter: PropTypes.number,
+  current: PropTypes.bool,
 }
 
 export default User

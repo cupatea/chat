@@ -76,6 +76,7 @@ class Chat extends Component {
       <div className = 'chat-container'>
         <Sidebar
           users = { this.state.usersList }
+          currentUserId = { this.props.roomId }
           counters = { this.state.countersObject }
         />
         <div className = 'messages-container'>

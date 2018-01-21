@@ -20,7 +20,6 @@
   background-color: #white;
   width: 300px;
   z-index: 200;
-  padding-left: 30px;
   overflow: scroll;
   height: 100%;
   position: fixed;
@@ -30,7 +29,7 @@
   border-right: 1px solid #fafafa;
 }
 
-//filter
+//Filter
 .filter {
   background-color: #fafafa;
   border-radius: 5px;
@@ -50,6 +49,10 @@
 .user-container {
   display: flex;
   margin: 3px 0;
+  padding-left: 30px;
+}
+.active {
+  background-color: #F1F0F0;
 }
 .user-circle-avatar {
   width: 50px;
