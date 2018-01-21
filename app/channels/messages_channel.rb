@@ -1,8 +1,8 @@
 class MessagesChannel < ApplicationCable::Channel
   def subscribed
-    (User.ids - [current_user.id]).each do |user_id|
-      stream_from "stream:#{current_user.id}-#{user_id}"
-      stream_from "stream:#{user_id}-#{current_user.id}"
+    User.all_except(current_user).each do |user|
+      stream_from "messages:#{current_user.id}-#{user.id}"
+      stream_from "messages:#{user.id}-#{current_user.id}"
     end
   end
 
