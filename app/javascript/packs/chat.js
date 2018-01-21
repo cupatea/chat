@@ -20,6 +20,7 @@ class Chat extends Component {
       usersList: [],
       countersObject: {},
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount(){
     this.fetchMessages()
@@ -63,6 +64,12 @@ class Chat extends Component {
         addressee_id: addressee_id,
       }
     })
+    .then(response => this.setState({
+      countersObject:{
+        ...this.state.countersObject,
+        [addressee_id]: this.state.countersObject[addressee_id] +1
+      }
+    }))
   }
   render(){
     return(
