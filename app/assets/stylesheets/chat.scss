@@ -9,24 +9,26 @@
 }
 
 .messages-container{
+  width: 100%;
   display: flex;
-  flex-basis: calc(100% - 300px);
   justify-content: center;
-  overflow: auto;
-  overflow-y: scroll;
+  margin-left: 315px;
 }
 
 //Sidebar
 .sidebar-container {
   background-color: #fafafa;
-  flex-basis: 300px;
+  width: 300px;
   color: white;
   z-index: 200;
-  display: flex;
-  flex-direction: column;
   padding-top: 50px;
   padding-left: 30px;
-  overflow-y: scroll;
+  overflow: scroll;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 15px;
+  right: 15px;
 }
 
 //User
@@ -88,6 +90,9 @@
 
 //MessagesList
 .messages-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   margin-top: 60px;
   margin-bottom: 10px;
   padding-left: 10px;
