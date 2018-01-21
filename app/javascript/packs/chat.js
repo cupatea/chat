@@ -82,12 +82,15 @@ class Chat extends Component {
         addressee_id: addressee_id,
       }
     })
-    .then(response => this.setState({
-      countersObject:{
-        ...this.state.countersObject,
-        [addressee_id]: this.state.countersObject[addressee_id] +1
-      }
-    }))
+    .then(response => {
+      this.state.countersObject[addressee_id] |= 0
+      this.setState({
+        countersObject:{
+          ...this.state.countersObject,
+          [addressee_id]: this.state.countersObject[addressee_id] +1
+        }
+      })
+    })
   }
   setRoom(id){
     this.setState({roomId: id})
@@ -132,7 +135,5 @@ Chat.propTypes = {
 
 document.addEventListener('DOMContentLoaded', () => {
   let node = document.getElementById('chat-room')
-  if(node){
-    ReactDOM.render(<Chat userId = { node.getAttribute('data-user-id') }/>, node)
-  }
+  node && ReactDOM.render(<Chat userId = { node.getAttribute('data-user-id') } />, node)
 })
