@@ -20,7 +20,7 @@ class MessagesList extends Component {
     )
   }
   scrollToBottom(){
-    this.messagesList.scrollIntoView({ block: "end" })
+    this.messagesList.scrollIntoView(false)
   }
   renderMessages(){
     return this.props.messages.map(message =>
