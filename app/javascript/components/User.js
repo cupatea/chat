@@ -7,7 +7,7 @@ const User = props => (
       { props.name.charAt(0) }
     </div>
     <div className = 'user-name'>
-      <span className = 'user-counter' children = { props.counter } />
+      <span className = 'user-counter' children = { props.counter || 0 } />
       <span children = { props.name } />
     </div>
   </div>

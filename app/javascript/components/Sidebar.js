@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import User from './User'
+import Filter from './Filter'
 
 class Sidebar extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      filterString: '',
+    }
+  }
   renderUsers(){
-    return this.props.users.map(user =>
+    return this.props.users
+    .filter(user =>
+      user.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
+    .map(user =>
       <User
         key = { user.id }
         name = { user.name }
@@ -17,6 +27,10 @@ class Sidebar extends Component {
   render(){
     return(
       <div className = 'sidebar-container'>
+        <Filter
+          placeholder = 'Search'
+          onTextChange = { text => this.setState({ filterString: text }) }
+        />
         { this.renderUsers() }
       </div>
     )

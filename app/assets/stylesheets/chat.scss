@@ -17,11 +17,9 @@
 
 //Sidebar
 .sidebar-container {
-  background-color: #fafafa;
+  background-color: #white;
   width: 300px;
-  color: white;
   z-index: 200;
-  padding-top: 50px;
   padding-left: 30px;
   overflow: scroll;
   height: 100%;
@@ -29,6 +27,23 @@
   top: 0px;
   left: 15px;
   right: 15px;
+  border-right: 1px solid #fafafa;
+}
+
+//filter
+.filter {
+  background-color: #fafafa;
+  border-radius: 5px;
+  border-style: none;
+  box-sizing: border-box;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+  margin: 15px 0;
+  padding: 0 28px;
+  color: black;
+  width: 95%;
+
 }
 
 //User
