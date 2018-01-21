@@ -63,7 +63,7 @@ Input.defaultProps = {
 
 Input.propTypes = {
   placeholder: PropTypes.string,
-  roomId: PropTypes.string,
+  roomId: PropTypes.number,
   submitHandler: PropTypes.func,
 }
 

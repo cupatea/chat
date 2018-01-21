@@ -14,7 +14,7 @@ class Sidebar extends Component {
     return this.props.users
     .filter(user =>
       user.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
-    .sort((a, b) => this.props.counters[b.id] - this.props.counters[a.id] )  
+    .sort((a, b) => this.props.counters[b.id] - this.props.counters[a.id] )
     .map(user =>
       <User
         current = { user.id == this.props.currentUserId }
@@ -22,6 +22,7 @@ class Sidebar extends Component {
         name = { user.name }
         id = { user.id }
         counter = { this.props.counters[user.id] }
+        clicked = { this.props.setRoomHandler }
       />
     )
   }
@@ -41,12 +42,14 @@ class Sidebar extends Component {
 
 Sidebar.defaultProps = {
   users: [],
-  currentUserId: '',
+  currentUserId: null,
+  roomSetHandler: () => {},
 }
 
 Sidebar.propTypes = {
   users: PropTypes.array,
-  currentUserId: PropTypes.string,
+  currentUserId: PropTypes.number,
+  setRoomHandler: PropTypes.func,
 }
 
 export default Sidebar

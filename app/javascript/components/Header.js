@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 
 const Header = props => (
   <div className = 'header-container' >
-    <h4 className = 'header-title'>{ props.name }</h4>  
+    <h4 className = 'header-title'>{ props.text }</h4>  
   </div>
 )
 
 Header.defaultProps = {
-  name: ''
+  text: ''
 }
 
 Header.propTypes = {
-  name: PropTypes.string,
+  text: PropTypes.string,
 }
 
 export default Header

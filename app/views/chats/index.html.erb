@@ -1,6 +1,2 @@
-<h1> Welcome <%= current_user.name %>!</h1>
-<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-<h3> Chat list</h3>
-<% @users.each do |user| %>
-<div><%= link_to user.name, chat_path(user.id) %> [<%= @messages_count[user.id] %>]</div>
-<% end %>
+<%= javascript_pack_tag 'chat' %>
+<div id="chat-room" data-user-id='<%= current_user.id %>'></div>

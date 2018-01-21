@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const User = props => (
-  <div className = { `user-container${ props.current ? ' active' : '' }` }>
+  <button
+    className = { `user-container${ props.current ? ' active' : '' }` }
+    onClick = { () => props.clicked(props.id) }
+  >
     <div className = 'user-circle-avatar' >
       { props.name.charAt(0) }
     </div>
@@ -10,13 +13,14 @@ const User = props => (
       <span className = 'user-counter' children = { props.counter || 0 } />
       <span children = { props.name } />
     </div>
-  </div>
+  </button>
 )
 
 User.defaultProps = {
   name: '',
   id: '',
   current: false,
+  clicked: () => {},
 }
 
 User.propTypes = {
@@ -24,6 +28,7 @@ User.propTypes = {
   id: PropTypes.number,
   counter: PropTypes.number,
   current: PropTypes.bool,
+  clicked: PropTypes.func
 }
 
 export default User
