@@ -7,7 +7,7 @@ const User = props => (
     onClick = { () => props.clicked(props.id) }
   >
     <div className = 'user-circle-avatar' >
-      { props.name.charAt(0) }
+      { props.name && props.name.charAt(0) }
     </div>
     <div className = 'user-name'>
       <span className = 'user-counter' children = { props.counter || 0 } />

@@ -13,7 +13,7 @@ class Sidebar extends Component {
   renderUsers(){
     return this.props.users
     .filter(user =>
-      user.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
+      user.name && user.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
     .sort((a, b) => this.props.counters[b.id] - this.props.counters[a.id] )
     .map(user =>
       <User
