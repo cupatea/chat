@@ -6,7 +6,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.1.4'
-gem 'sqlite3'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -15,13 +14,13 @@ gem 'devise'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 3.0'
-gem "bootstrap-sass", "~> 3.3"
-
+gem 'bootstrap-sass', "~> 3.3"
+gem 'faker'
+gem 'pg'
 
 group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem 'faker'
 end
 
 group :development do
