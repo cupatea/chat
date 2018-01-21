@@ -10,7 +10,8 @@ const User = props => (
       { props.name && props.name.charAt(0) }
     </div>
     <div className = 'user-name'>
-      <span className = 'user-counter' children = { props.counter || 0 } />
+      <span className = 'user-counter' children = { props.sentCount || 0 } />
+      <span className = 'user-counter' children = { props.newCount || '' } />
       <span children = { props.name } />
     </div>
   </button>
@@ -20,14 +21,18 @@ User.defaultProps = {
   name: '',
   id: '',
   current: false,
+  sentCount: 0,
+  newCount: 0,
   clicked: () => {},
 }
 
 User.propTypes = {
   name: PropTypes.string,
   id: PropTypes.number,
-  counter: PropTypes.number,
+  sended: PropTypes.number,
   current: PropTypes.bool,
+  sentCount: PropTypes.number,
+  newCount: PropTypes.number,
   clicked: PropTypes.func
 }
 

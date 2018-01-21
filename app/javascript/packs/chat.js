@@ -17,9 +17,12 @@ class Chat extends Component {
     this.state = {
       chatHeader: '',
       roomId: null,
-      messagesList: {1:[]},
+      messagesList: {},
       usersList: [],
-      countersObject: {},
+      counters: {
+        sentMessages: {},
+        newMessages: {}
+      },
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setRoom = this.setRoom.bind(this)
@@ -31,7 +34,16 @@ class Chat extends Component {
   }
   componentDidUpdate(previousProps, previousState){
     if(this.state.roomId && this.state.roomId != previousState.roomId ){
-      this.setState({ messagesList: {}})
+      this.setState({
+        messagesList: {},
+        counters:{
+          ...this.state.counters,
+          newMessages:{
+            ...this.state.counters.newMessages,
+            [this.state.roomId]: 0
+          }
+        }
+      })
       this.fetchMessages()
     }
   }
@@ -39,10 +51,34 @@ class Chat extends Component {
     App.messages = App.cable.subscriptions.create('MessagesChannel',{
       received: data => {
         const room = data.addressee_id == this.props.userId ? data.addresser_id : data.addressee_id
+        //It's incoming message from the chat that's not curently active, isn't it?
+        if(!this.state.messagesList[room]){
+          this.setState({
+            //It's better to create keys beforehand
+            messagesList: {
+              ...this.state.messagesList,
+              [room]: []
+            },
+            counters: {
+              ...this.state.counters,
+              newMessages:{
+                ...this.state.counters.newMessages,
+                [room]: 0
+              }
+            }
+          })
+        }
         this.setState({
           messagesList: {
             ...this.state.messagesList,
             [room]: [...this.state.messagesList[room], data]
+          },
+          counters:{
+            ...this.state.counters,
+            newMessages:{
+              ...this.state.counters.newMessages,
+              [room]: this.state.counters.newMessages[room] + (room === this.state.roomId ? 0 : 1)
+            }
           }
         })
       }
@@ -70,9 +106,14 @@ class Chat extends Component {
   }
   fetchCounters(){
     axios.get('chats/counter')
-    .then(response => this.setState({
-      countersObject: response.data,
-    }))
+    .then(response => {
+      this.setState({
+        counters: {
+          ...this.state.counters,
+          sentMessages: response.data,
+        }
+      })
+    })
     .catch(error => console.log(error))
   }
   handleSubmit(messageText,addressee_id ){
@@ -83,11 +124,14 @@ class Chat extends Component {
       }
     })
     .then(response => {
-      this.state.countersObject[addressee_id] |= 0
+      this.state.counters.sentMessages[addressee_id] |= 0
       this.setState({
-        countersObject:{
-          ...this.state.countersObject,
-          [addressee_id]: this.state.countersObject[addressee_id] +1
+        counters:{
+          ...this.state.counters,
+          sentMessages:{
+            ...this.state.counters.sentMessages,
+            [addressee_id]: this.state.counters.sentMessages[addressee_id] +1
+          }
         }
       })
     })
@@ -119,7 +163,8 @@ class Chat extends Component {
         <Sidebar
           users = { this.state.usersList }
           currentUserId = { this.state.roomId }
-          counters = { this.state.countersObject }
+          sentCounter = { this.state.counters.sentMessages }
+          newCounter = { this.state.counters.newMessages }
           setRoomHandler = { this.setRoom }
         />
         { !this.state.roomId &&   <Header text = 'Click on user to start dialog'/> }
