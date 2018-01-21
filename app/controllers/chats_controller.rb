@@ -2,12 +2,6 @@ class ChatsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all_except current_user
-    @messages_count = current_user.has_messages_from.count
-  end
-
-  def show
-    redirect_to chats_path unless User.exists? id: params[:id]
   end
 
   def messages
