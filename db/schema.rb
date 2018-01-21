@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 20180107190230) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "messages", force: :cascade do |t|
-    t.integer "addressee_id"
-    t.integer "addresser_id"
+    t.bigint "addressee_id"
+    t.bigint "addresser_id"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
