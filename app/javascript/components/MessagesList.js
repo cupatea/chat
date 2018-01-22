@@ -8,8 +8,7 @@ class MessagesList extends Component {
     const hours = parsed.getHours().toString()
     const minutes = parsed.getMinutes().toString()
     return (
-      `${hours.length < 2 ? `0${hours}` : hours}
-      :${minutes.length < 2 ? `0${minutes}` : minutes}`
+      `${hours.length < 2 ? `0${hours}` : hours}:${minutes.length < 2 ? `0${minutes}` : minutes}`
     )
   }
   componentDidMount() {

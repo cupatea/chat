@@ -9,14 +9,14 @@ const User = props => (
     <div className = 'user-circle-avatar' >
       { props.name && props.name.charAt(0) }
     </div>
-    <div className = 'user-name'>
+    <div className = 'user-info'>
       <span className = 'user-counter'>
         { props.sentCount || 0 }
       </span>
       <span className = 'user-counter' >
         { props.newCount || '' }
       </span>
-      <span >
+      <span className = 'user-name' >
         { props.name }
       </span>
     </div>
