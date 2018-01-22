@@ -29,8 +29,11 @@ class Chat extends Component {
     this.fetchUsers()
     this.fetchCounters()
     this.createMessagesSubscription()
+    if (this.props.roomId && !this.state.roomId) {
+      this.setRoom(this.props.roomId, this.props.roomName)
+    }
   }
-  setRoom(id) {
+  setRoom(id, name) {
     this.setState({
       roomId: id,
       messagesList: {},
@@ -38,10 +41,10 @@ class Chat extends Component {
         ...this.state.newMessagesCounter,
         [id]: 0,
       },
+      chatHeader: name,
     })
-    this.fetchMessages(id, this.state.usersList)
+    this.fetchMessages(id)
   }
-
   createMessagesSubscription() {
     App.messages = App.cable.subscriptions.create('MessagesChannel', {
       received: (data) => {
@@ -70,14 +73,13 @@ class Chat extends Component {
       },
     })
   }
-  fetchMessages(id, usersList) {
+  fetchMessages(id) {
     axios.get(`/chats/messages?id=${id}`)
       .then((response) => {
         this.setState({
           messagesList: {
-            [this.state.roomId]: response.data,
+            [id]: response.data,
           },
-          chatHeader: usersList.find(user => user.id === this.state.roomId).name,
         })
       })
       // .catch(error => console.error(error))
@@ -146,20 +148,30 @@ class Chat extends Component {
           newCounter = { this.state.newMessagesCounter }
           setRoomHandler = { this.setRoom }
         />
-        { !this.state.roomId && <Header text = 'Click on user to start dialog' /> }
+        { !this.state.roomId && !this.props.roomId &&
+          <Header text = 'Click on user to start dialog' /> }
         { this.state.roomId && this.renderMessagesContainer() }
       </div>
     )
   }
 }
-Chat.defaultTypes = {
-  userId: null,
+Chat.defaultProps = {
+  roomId: null,
+  roomName: '',
 }
 Chat.propTypes = {
   userId: PropTypes.number.isRequired,
+  roomId: PropTypes.number,
+  roomName: PropTypes.string,
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('chat-room')
-  if (node) { ReactDOM.render(<Chat userId = { +node.getAttribute('data-user-id') } />, node) }
+  if (node) {
+    ReactDOM.render(<Chat
+      userId = { +node.getAttribute('data-user-id') }
+      roomId = { +node.getAttribute('data-room-id') }
+      roomName = { node.getAttribute('data-room-name') }
+    />, node)
+  }
 })

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const User = props => (
   <button
     className = { `user-container${props.current ? ' active' : ''}` }
-    onClick = { () => props.clicked(props.id) }
+    onClick = { () => props.clicked(props.id, props.name) }
   >
     <div className = 'user-circle-avatar' >
       { props.name && props.name.charAt(0) }
