@@ -26,7 +26,7 @@ class MessagesList extends Component {
       <Message
         key = { message.id }
         text = { message.body }
-        time = { this.pritifyTime(message.created_at) }
+        time = { MessagesList.pritifyTime(message.created_at) }
         own = { message.addresser_id === this.props.userId }
       />
     ))
@@ -53,7 +53,7 @@ MessagesList.propTypes = {
     name: PropTypes.string,
     id: PropTypes.number,
   })),
-  userId: PropTypes.string,
+  userId: PropTypes.number,
 }
 
 export default MessagesList
