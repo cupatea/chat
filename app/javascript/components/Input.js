@@ -1,56 +1,56 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class Input extends Component{
-  constructor(props){
+class Input extends Component {
+  constructor(props) {
     super(props)
     this.state = {
       text: '',
     }
   }
-  componentDidMount(){
+  componentDidMount() {
     this.textInput.focus()
   }
-  handleChange(event){
+  handleChange(event) {
     this.setState({ text: event.target.value })
   }
-  handleEnterKeyPress(event){
-    if(event.keyCode === 13){
+  handleEnterKeyPress(event) {
+    if (event.keyCode === 13) {
       event.preventDefault()
       this.handleSubmit()
     }
   }
-  handleSubmit(){
-    if(this.state.text){
+  handleSubmit() {
+    if (this.state.text) {
       this.props.submitHandler(this.state.text, this.props.roomId)
       this.setState({
-        text: ''
+        text: '',
       })
     }
   }
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <button
-          type = "button"
-          className ="btn btn-default attachment"
+          type = 'button'
+          className = 'btn btn-default attachment'
         >
-          <span className = "glyphicon glyphicon-plus" aria-hidden="true"/>
+          <span className = 'glyphicon glyphicon-plus' aria-hidden = 'true' />
         </button>
         <input
           className = 'input-container'
-          ref={ input => this.textInput = input }
-          placeholder = 'Write a message'
+          ref = { (input) => { this.textInput = input } }
+          placeholder = { this.props.placeholder }
           value = { this.state.text }
           onChange = { e => this.handleChange(e) }
           onKeyUp = { e => this.handleEnterKeyPress(e) }
         />
         <button
-          type = "button"
-          className = "btn btn-default send"
+          type = 'button'
+          className = 'btn btn-default send'
           onClick = { () => this.handleSubmit() }
         >
-          <span className = "glyphicon glyphicon-send" aria-hidden="true"/>
+          <span className = 'glyphicon glyphicon-send' aria-hidden = 'true' />
         </button>
       </div>
     )
@@ -60,7 +60,7 @@ class Input extends Component{
 Input.defaultProps = {
   placeholder: '',
   roomId: null,
-  submitHandler:() => {},
+  submitHandler: () => {},
 }
 
 Input.propTypes = {

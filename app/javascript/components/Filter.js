@@ -5,21 +5,20 @@ const Filter = props => (
   <div>
     <input
       className = 'filter'
-      type = "text"
+      type = 'text'
       placeholder = { props.placeholder }
-      onKeyUp={ event => props.onTextChange(event.target.value) }
+      onKeyUp = { event => props.onTextChange(event.target.value) }
     />
   </div>
 )
 
 Filter.defaultProps = {
   placeholder: '',
-  onTextChange:() => {},
+  onTextChange: () => {},
 }
 
 Filter.propTypes = {
   placeholder: PropTypes.string,
-  submitHandler: PropTypes.func,
   onTextChange: PropTypes.func,
 }
 

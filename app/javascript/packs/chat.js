@@ -8,11 +8,11 @@ import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 
 axios.defaults.headers.common = {
-  'X-CSRF-TOKEN' : document.getElementsByName('csrf-token')[0].content
+  'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].content,
 }
 
 class Chat extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       chatHeader: '',
@@ -21,127 +21,125 @@ class Chat extends Component {
       usersList: [],
       counters: {
         sentMessages: {},
-        newMessages: {}
+        newMessages: {},
       },
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setRoom = this.setRoom.bind(this)
   }
-  componentDidMount(){
+  componentDidMount() {
     this.fetchUsers()
     this.fetchCounters()
     this.createMessagesSubscription()
   }
-  componentDidUpdate(previousProps, previousState){
-    if(this.state.roomId && this.state.roomId != previousState.roomId ){
-      this.setState({
-        messagesList: {},
-        counters:{
-          ...this.state.counters,
-          newMessages:{
-            ...this.state.counters.newMessages,
-            [this.state.roomId]: 0
-          }
-        }
-      })
-      this.fetchMessages()
-    }
+  setRoom(id) {
+    this.setState({ roomId: id })
+    this.setState({
+      messagesList: {},
+      counters: {
+        ...this.state.counters,
+        newMessages: {
+          ...this.state.counters.newMessages,
+          [this.state.roomId]: 0,
+        },
+      },
+    })
+    this.fetchMessages()
   }
-  createMessagesSubscription(){
-    App.messages = App.cable.subscriptions.create('MessagesChannel',{
-      received: data => {
-        const room = data.addressee_id == this.props.userId ? data.addresser_id : data.addressee_id
-        //It's incoming message from the chat that's not curently active, isn't it?
-        if(!this.state.messagesList[room]){
+
+  createMessagesSubscription() {
+    App.messages = App.cable.subscriptions.create('MessagesChannel', {
+      received: (data) => {
+        const room = data.addressee_id === this.props.userId ? data.addresser_id : data.addressee_id
+        //  It's incoming message from the chat that's not curently active, isn't it?
+        if (!this.state.messagesList[room]) {
           this.setState({
-            //It's better to create keys beforehand
+            // It's better to create keys beforehand
             messagesList: {
               ...this.state.messagesList,
-              [room]: []
+              [room]: [],
             },
             counters: {
               ...this.state.counters,
-              newMessages:{
+              newMessages: {
                 ...this.state.counters.newMessages,
-                [room]: 0
-              }
-            }
+                [room]: 0,
+              },
+            },
           })
         }
         this.setState({
           messagesList: {
             ...this.state.messagesList,
-            [room]: [...this.state.messagesList[room], data]
+            [room]: [...this.state.messagesList[room], data],
           },
-          counters:{
+          counters: {
             ...this.state.counters,
-            newMessages:{
+            newMessages: {
               ...this.state.counters.newMessages,
-              [room]: this.state.counters.newMessages[room] + (room === this.state.roomId ? 0 : 1)
-            }
-          }
+              [room]: this.state.counters.newMessages[room] + (room === this.state.roomId ? 0 : 1),
+            },
+          },
         })
-      }
+      },
     })
   }
-  fetchMessages(){
+  fetchMessages() {
     axios.get(`chats/messages?id=${this.state.roomId}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           messagesList: {
-            [this.state.roomId]: response.data
+            [this.state.roomId]: response.data,
           },
-          chatHeader: this.state.usersList.find(user => user.id == this.state.roomId).name
+          chatHeader: this.state.usersList.find(user => user.id === this.state.roomId).name,
         })
       })
       // .catch(error => console.error(error))
   }
-  fetchUsers(){
+  fetchUsers() {
     axios.get('chats/users')
-      .then(response => {
+      .then((response) => {
         this.setState({
           usersList: response.data,
         })
       })
       // .catch(error => console.log(error))
   }
-  fetchCounters(){
+  fetchCounters() {
     axios.get('chats/counter')
-      .then(response => {
+      .then((response) => {
         this.setState({
           counters: {
             ...this.state.counters,
             sentMessages: response.data,
-          }
+          },
         })
       })
       // .catch(error => console.log(error))
   }
-  handleSubmit(messageText,addressee_id ){
-    axios.post('messages',{
-      message:{
+  handleSubmit(messageText, id) {
+    axios.post('messages', {
+      message: {
         body: messageText,
-        addressee_id: addressee_id,
-      }
+        addressee_id: id,
+      },
     })
-      .then(response => {
-        const messages = this.state.counters.sentMessages[addressee_id]
+      .then(() => {
+        const messages = this.state.counters.sentMessages[id]
         this.setState({
-          counters:{
+          counters: {
             ...this.state.counters,
-            sentMessages:{
+            sentMessages: {
               ...this.state.counters.sentMessages,
-              [addressee_id]: messages ? messages +1 : 1
-            }
-          }
+              [id]: messages ? messages + 1 : 1,
+            },
+          },
         })
       })
   }
-  setRoom(id){
-    this.setState({roomId: id})
-  }
-  renderMessagesContainer(){
-    return(
+
+  renderMessagesContainer() {
+    return (
       <div className = 'messages-container'>
         <Header
           text = { this.state.chatHeader }
@@ -158,8 +156,8 @@ class Chat extends Component {
       </div>
     )
   }
-  render(){
-    return(
+  render() {
+    return (
       <div className = 'chat-container'>
         <Sidebar
           users = { this.state.usersList }
@@ -168,18 +166,20 @@ class Chat extends Component {
           newCounter = { this.state.counters.newMessages }
           setRoomHandler = { this.setRoom }
         />
-        { !this.state.roomId &&   <Header text = 'Click on user to start dialog'/> }
+        { !this.state.roomId && <Header text = 'Click on user to start dialog' /> }
         { this.state.roomId && this.renderMessagesContainer() }
       </div>
     )
   }
 }
-
+Chat.defaultTypes = {
+  userId: null,
+}
 Chat.propTypes = {
-  userId: PropTypes.string
+  userId: PropTypes.number.isRequired,
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let node = document.getElementById('chat-room')
-  node && ReactDOM.render(<Chat userId = { node.getAttribute('data-user-id') } />, node)
+  const node = document.getElementById('chat-room')
+  if (node) { ReactDOM.render(<Chat userId = { +node.getAttribute('data-user-id') } />, node) }
 })

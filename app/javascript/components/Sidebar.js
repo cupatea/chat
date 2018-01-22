@@ -4,24 +4,25 @@ import User from './User'
 import Filter from './Filter'
 
 class Sidebar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       filterString: '',
     }
   }
-  renderUsers(){
+  renderUsers() {
     return this.props.users
       .filter(user =>
-        user.name && user.name.toLowerCase().includes(this.state.filterString.toLowerCase())
-      )
+        user.name && user.name.toLowerCase().includes(this.state.filterString.toLowerCase()))
       .sort((a, b) => {
         const counter = this.props.sentCounter
-        return !counter[a.id] ? 1 : (!counter[b.id] ? -1 : counter[b.id] - counter[a.id])
+        if (!counter[a.id]) { return 1 }
+        if (!counter[b.id]) { return -1 }
+        return counter[b.id] - counter[a.id]
       })
-      .map(user =>
+      .map(user => (
         <User
-          current = { user.id == this.props.currentUserId }
+          current = { user.id === this.props.currentUserId }
           key = { user.id }
           name = { user.name }
           id = { user.id }
@@ -29,10 +30,10 @@ class Sidebar extends Component {
           newCount = { this.props.newCounter[user.id] }
           clicked = { this.props.setRoomHandler }
         />
-      )
+      ))
   }
-  render(){
-    return(
+  render() {
+    return (
       <div className = 'sidebar-container'>
         <Filter
           placeholder = 'Search'
@@ -49,14 +50,21 @@ Sidebar.defaultProps = {
   currentUserId: null,
   sentCounter: {},
   newCounter: {},
-  roomSetHandler: () => {},
+  setRoomHandler: () => {},
 }
 
 Sidebar.propTypes = {
-  users: PropTypes.array,
+  users: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number,
+  })),
   currentUserId: PropTypes.number,
-  sentCounter: PropTypes.object,
-  newCounter: PropTypes.object,
+  sentCounter: PropTypes.shape({
+    [PropTypes.number]: PropTypes.number,
+  }),
+  newCounter: PropTypes.shape({
+    [PropTypes.number]: PropTypes.number,
+  }),
   setRoomHandler: PropTypes.func,
 }
 

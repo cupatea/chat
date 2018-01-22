@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const User = props => (
   <button
-    className = { `user-container${ props.current ? ' active' : '' }` }
+    className = { `user-container${props.current ? ' active' : ''}` }
     onClick = { () => props.clicked(props.id) }
   >
     <div className = 'user-circle-avatar' >
@@ -38,7 +38,7 @@ User.propTypes = {
   current: PropTypes.bool,
   sentCount: PropTypes.number,
   newCount: PropTypes.number,
-  clicked: PropTypes.func
+  clicked: PropTypes.func,
 }
 
 export default User

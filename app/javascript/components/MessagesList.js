@@ -3,42 +3,41 @@ import PropTypes from 'prop-types'
 import Message from './Message'
 
 class MessagesList extends Component {
-  componentDidMount(){
-    this.scrollToBottom()
-  }
-  componentDidUpdate(){
-    this.scrollToBottom()
-  }
-  pritifyTime(timestamp){
+  static pritifyTime(timestamp) {
     const parsed = new Date(Date.parse(timestamp))
     const hours = parsed.getHours().toString()
     const minutes = parsed.getMinutes().toString()
-    return(
-      (hours.length < 2 ? `0${hours}` : hours)
-      + ':' +
-      (minutes.length < 2 ? `0${minutes}` : minutes)
+    return (
+      `${hours.length < 2 ? `0${hours}` : hours}
+      :${minutes.length < 2 ? `0${minutes}` : minutes}`
     )
   }
-  scrollToBottom(){
+  componentDidMount() {
+    this.scrollToBottom()
+  }
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+  scrollToBottom() {
     this.messagesList.scrollIntoView(false)
   }
-  renderMessages(){
-    return this.props.messages.map(message =>
+  renderMessages() {
+    return this.props.messages.map(message => (
       <Message
         key = { message.id }
         text = { message.body }
         time = { this.pritifyTime(message.created_at) }
-        own  = { message.addresser_id == this.props.userId }
+        own = { message.addresser_id === this.props.userId }
       />
-    )
+    ))
   }
-  render(){
-    return(
+  render() {
+    return (
       <div
         className = 'messages-list'
-        ref = { node => this.messagesList = node }
+        ref = { (node) => { this.messagesList = node } }
       >
-        { this.renderMessages()  }
+        { this.renderMessages() }
       </div>
     )
   }
@@ -50,8 +49,11 @@ MessagesList.defaultProps = {
 }
 
 MessagesList.propTypes = {
-  messages: PropTypes.array,
-  userId: PropTypes.string
+  messages: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number,
+  })),
+  userId: PropTypes.string,
 }
 
 export default MessagesList

@@ -9,7 +9,7 @@ const Message = props => (
       </span>
       <span className = 'time'>
         { props.time }
-      </span>  
+      </span>
     </div>
   </div>
 )
