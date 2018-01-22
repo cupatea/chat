@@ -15,7 +15,10 @@ class Sidebar extends Component {
       .filter(user =>
         user.name && user.name.toLowerCase().includes(this.state.filterString.toLowerCase())
       )
-      .sort((a, b) => this.props.sentCounter[b.id] - this.props.sentCounter[a.id])
+      .sort((a, b) => {
+        const counter = this.props.sentCounter
+        return !counter[a.id] ? 1 : (!counter[b.id] ? -1 : counter[b.id] - counter[a.id])
+      })
       .map(user =>
         <User
           current = { user.id == this.props.currentUserId }
