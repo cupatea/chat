@@ -20,6 +20,7 @@ Filter.defaultProps = {
 Filter.propTypes = {
   placeholder: PropTypes.string,
   submitHandler: PropTypes.func,
+  onTextChange: PropTypes.func,
 }
 
 export default Filter

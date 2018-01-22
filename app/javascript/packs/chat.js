@@ -86,35 +86,36 @@ class Chat extends Component {
   }
   fetchMessages(){
     axios.get(`chats/messages?id=${this.state.roomId}`)
-    .then(response => {
-      this.state.messagesList[this.state.roomId] |= []
-      this.setState({
-        messagesList: {
-          [this.state.roomId]: response.data
-        },
-        chatHeader: this.state.usersList.find(user => user.id == this.state.roomId).name
+      .then(response => {
+        this.setState({
+          messagesList: {
+            [this.state.roomId]: response.data
+          },
+          chatHeader: this.state.usersList.find(user => user.id == this.state.roomId).name
+        })
       })
-    })
-    .catch(error => console.log(error))
+      // .catch(error => console.error(error))
   }
   fetchUsers(){
     axios.get('chats/users')
-    .then(response => this.setState({
-      usersList: response.data,
-    }))
-    .catch(error => console.log(error))
+      .then(response => {
+        this.setState({
+          usersList: response.data,
+        })
+      })
+      // .catch(error => console.log(error))
   }
   fetchCounters(){
     axios.get('chats/counter')
-    .then(response => {
-      this.setState({
-        counters: {
-          ...this.state.counters,
-          sentMessages: response.data,
-        }
+      .then(response => {
+        this.setState({
+          counters: {
+            ...this.state.counters,
+            sentMessages: response.data,
+          }
+        })
       })
-    })
-    .catch(error => console.log(error))
+      // .catch(error => console.log(error))
   }
   handleSubmit(messageText,addressee_id ){
     axios.post('messages',{
@@ -123,18 +124,18 @@ class Chat extends Component {
         addressee_id: addressee_id,
       }
     })
-    .then(response => {
-      this.state.counters.sentMessages[addressee_id] |= 0
-      this.setState({
-        counters:{
-          ...this.state.counters,
-          sentMessages:{
-            ...this.state.counters.sentMessages,
-            [addressee_id]: this.state.counters.sentMessages[addressee_id] +1
+      .then(response => {
+        const messages = this.state.counters.sentMessages[addressee_id]
+        this.setState({
+          counters:{
+            ...this.state.counters,
+            sentMessages:{
+              ...this.state.counters.sentMessages,
+              [addressee_id]: messages ? messages +1 : 1
+            }
           }
-        }
+        })
       })
-    })
   }
   setRoom(id){
     this.setState({roomId: id})

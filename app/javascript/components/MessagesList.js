@@ -37,8 +37,9 @@ class MessagesList extends Component {
       <div
         className = 'messages-list'
         ref = { node => this.messagesList = node }
-        children = { this.renderMessages() }
-      />
+      >
+        { this.renderMessages()  }
+      </div>
     )
   }
 }

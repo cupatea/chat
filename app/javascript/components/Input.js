@@ -34,8 +34,9 @@ class Input extends Component{
         <button
           type = "button"
           className ="btn btn-default attachment"
-          children = { <span className = "glyphicon glyphicon-plus" aria-hidden="true"/> }
-        />
+        >
+          <span className = "glyphicon glyphicon-plus" aria-hidden="true"/>
+        </button>
         <input
           className = 'input-container'
           ref={ input => this.textInput = input }
@@ -48,8 +49,9 @@ class Input extends Component{
           type = "button"
           className = "btn btn-default send"
           onClick = { () => this.handleSubmit() }
-          children = {<span className = "glyphicon glyphicon-send" aria-hidden="true"/>}
-        />
+        >
+          <span className = "glyphicon glyphicon-send" aria-hidden="true"/>
+        </button>
       </div>
     )
   }
