@@ -9,7 +9,7 @@ class ChatsController < ApplicationController
   end
 
   def users
-    render json: User.all_except(current_user).map{ |user| { name: user.name, id: user.id } }
+    render json: User.all_except(current_user).map{ |user| { name: user.name, id: user.id , online: user.online, last_seen_at: user.updated_at} }
   end
 
   def counter

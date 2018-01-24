@@ -1,7 +1,12 @@
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import User from './User'
 import Filter from './Filter'
+
+TimeAgo.locale(en)
+const timeAgo = new TimeAgo('en-US')
 
 class Sidebar extends Component {
   constructor(props) {
@@ -26,6 +31,8 @@ class Sidebar extends Component {
           key = { user.id }
           name = { user.name }
           id = { user.id }
+          online = { user.online }
+          lastSeen = { timeAgo.format(Date.parse(user.last_seen_at)) }
           sentCount = { this.props.sentCounter[user.id] }
           newCount = { this.props.newCounter[user.id] }
           clicked = { this.props.setRoomHandler }

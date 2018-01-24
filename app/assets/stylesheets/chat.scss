@@ -116,7 +116,7 @@
   }
 }
 
-.user-counter{
+.user-counter {
   font-size: 10px;
   font-weight: 300;
   font-style: italic;
@@ -126,7 +126,31 @@
     padding-left: 10px;
   }
 }
+.user-online {
+  width: 8px;
+  height: 8px;
+  z-index: 300;
+  border-radius: 50%;
+  background-color: #60a733;
+}
+.user-offline {
+  width: 8px;
+  height: 8px;
+  z-index: 300;
+  border-radius: 50%;
+  background-color: #F1F0F0;
+}
 
+.user-last-seen {
+  margin-left: 3px;
+  font-size: 10px;
+  font-weight: 300;
+  font-style: italic;
+  display: none;
+  @media (min-width: 768px) {
+    display: inline-block;
+  }
+}
 //Header
 .header-container {
   display: flex;

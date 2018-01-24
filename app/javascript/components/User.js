@@ -16,9 +16,12 @@ const User = props => (
       <span className = 'user-counter' >
         { props.newCount || '' }
       </span>
+      { props.online && <span className = 'user-online' /> }
+      { !props.online && <span className = 'user-offline' /> }
       <span className = 'user-name' >
         { props.name }
       </span>
+      { !props.online && <span className = 'user-last-seen'> { props.lastSeen }</span>}
     </div>
   </button>
 )
@@ -26,6 +29,8 @@ const User = props => (
 User.defaultProps = {
   name: '',
   id: '',
+  online: false,
+  lastSeen: 'never',
   current: false,
   sentCount: 0,
   newCount: 0,
@@ -35,6 +40,8 @@ User.defaultProps = {
 User.propTypes = {
   name: PropTypes.string,
   id: PropTypes.number,
+  online: PropTypes.bool,
+  lastSeen: PropTypes.string,
   current: PropTypes.bool,
   sentCount: PropTypes.number,
   newCount: PropTypes.number,
