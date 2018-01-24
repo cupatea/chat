@@ -29,6 +29,7 @@ class Chat extends Component {
     this.fetchUsers()
     this.fetchCounters()
     this.createMessagesSubscription()
+    this.createUserSubscription()
     if (this.props.roomId && !this.state.roomId) {
       this.setRoom(this.props.roomId, this.props.roomName)
     }
@@ -70,6 +71,17 @@ class Chat extends Component {
             (room === this.state.roomId || data.addresser_id === this.props.userId ? 0 : 1),
           },
         })
+      },
+    })
+  }
+  createUserSubscription() {
+    App.users = App.cable.subscriptions.create('UsersChannel', {
+      received: (data) => {
+        const updatedUsersList = this.state.usersList.map(user => (user.id === data.id
+          ? { ...user, ...data }
+          : user
+        ))
+        this.setState({ usersList: updatedUsersList })
       },
     })
   }
