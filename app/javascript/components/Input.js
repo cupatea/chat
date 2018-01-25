@@ -2,18 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class Input extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      text: '',
-    }
-  }
-  componentDidMount() {
-    this.textInput.focus()
-  }
-  handleChange(event) {
-    this.setState({ text: event.target.value })
-  }
   handleEnterKeyPress(event) {
     if (event.keyCode === 13) {
       event.preventDefault()
@@ -21,11 +9,8 @@ class Input extends Component {
     }
   }
   handleSubmit() {
-    if (this.state.text) {
-      this.props.submitHandler(this.state.text, this.props.roomId)
-      this.setState({
-        text: '',
-      })
+    if (this.props.text) {
+      this.props.submitHandler(this.props.text, this.props.roomId)
     }
   }
   render() {
@@ -41,8 +26,8 @@ class Input extends Component {
           className = 'input-container'
           ref = { (input) => { this.textInput = input } }
           placeholder = { this.props.placeholder }
-          value = { this.state.text }
-          onChange = { e => this.handleChange(e) }
+          value = { this.props.text }
+          onChange = { e => this.props.inputChangeHandler(e.target.value) }
           onKeyUp = { e => this.handleEnterKeyPress(e) }
         />
         <button
@@ -59,14 +44,18 @@ class Input extends Component {
 
 Input.defaultProps = {
   placeholder: '',
+  text: '',
   roomId: null,
   submitHandler: () => {},
+  inputChangeHandler: () => {},
 }
 
 Input.propTypes = {
   placeholder: PropTypes.string,
+  text: PropTypes.string,
   roomId: PropTypes.number,
   submitHandler: PropTypes.func,
+  inputChangeHandler: PropTypes.func,
 }
 
 export default Input

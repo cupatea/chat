@@ -21,9 +21,11 @@ class Chat extends Component {
       usersList: [],
       sentMessagesCounter: {},
       newMessagesCounter: {},
+      inputText: {},
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setRoom = this.setRoom.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
   componentDidMount() {
     this.fetchUsers()
@@ -114,6 +116,14 @@ class Chat extends Component {
       })
       // .catch(error => console.log(error))
   }
+  handleInputChange(text) {
+    this.setState({
+      inputText: {
+        ...this.state.inputText,
+        [this.state.roomId]: text,
+      },
+    })
+  }
   handleSubmit(messageText, id) {
     axios.post('/messages', {
       message: {
@@ -127,6 +137,10 @@ class Chat extends Component {
           sentMessagesCounter: {
             ...this.state.sentMessagesCounter,
             [id]: messages ? messages + 1 : 1,
+          },
+          inputText: {
+            ...this.state.inputText,
+            [id]: '',
           },
         })
       })
@@ -144,8 +158,11 @@ class Chat extends Component {
         />
         <Input
           placeholder = 'Write a message...'
+          text = { this.state.inputText[this.state.roomId] }
           submitHandler = { this.handleSubmit }
+          inputChangeHandler = { this.handleInputChange }
           roomId = { this.state.roomId }
+          ref = { (child) => { if (child) { child.textInput.focus() } } }
         />
       </div>
     )
