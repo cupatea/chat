@@ -110,6 +110,10 @@
   font-weight: 300;
   color: black;
   display: none;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   @media (min-width: 768px) {
     display: inline-block;
     padding-left: 10px;
