@@ -9,13 +9,12 @@
   height: 50px;
   background: white;
   border-bottom: 1px solid #fafafa;
+  right: 0px;
+  left: 0;
   z-index: 300;
-  left: 75px;
-  right: 10px;
   @media (min-width: 768px) {
-    z-index: 100;
     left: 315px;
-    right: 15px;
+    z-index: 100;
   }
 }
 
