@@ -10,7 +10,9 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "redux": "^3.7.2"
+    "react-icons-kit": "^1.0.7",
+    "redux": "^3.7.2",
+    "typeface-roboto": "^0.0.54"
   },
   "devDependencies": {
     "eslint": "^4.9.0",

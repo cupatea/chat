@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import '../styles/User.css'
 
 const User = props => (
   <button
     className = { `user-container${props.current ? ' active' : ''}` }
-    onClick = { () => props.clicked(props.id, props.name) }
+    onClick = { () => props.clicked(props.id, props.name, props.lastSeen, props.online) }
   >
     <div className = 'user-circle-avatar' >
       { props.name && props.name.charAt(0) }
@@ -21,7 +22,6 @@ const User = props => (
       <span className = 'user-name' >
         { props.name }
       </span>
-      { !props.online && <span className = 'user-last-seen'> { props.lastSeen }</span>}
     </div>
   </button>
 )

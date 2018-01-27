@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Icon from 'react-icons-kit'
+import { send } from 'react-icons-kit/fa/send'
+import { attachment } from 'react-icons-kit/icomoon/attachment'
+import '../styles/Input.css'
 
 class Input extends Component {
   handleEnterKeyPress(event) {
@@ -17,10 +21,9 @@ class Input extends Component {
     return (
       <div>
         <button
-          type = 'button'
-          className = 'btn btn-default attachment'
+          className = 'button attachment'
         >
-          <span className = 'glyphicon glyphicon-plus' aria-hidden = 'true' />
+          <Icon icon = { attachment } />
         </button>
         <input
           className = 'input-container'
@@ -31,11 +34,10 @@ class Input extends Component {
           onKeyUp = { e => this.handleEnterKeyPress(e) }
         />
         <button
-          type = 'button'
-          className = 'btn btn-default send'
+          className = 'button send'
           onClick = { () => this.handleSubmit() }
         >
-          <span className = 'glyphicon glyphicon-send' aria-hidden = 'true' />
+          <Icon icon = { send } />
         </button>
       </div>
     )

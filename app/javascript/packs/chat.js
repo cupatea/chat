@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import 'typeface-roboto/index.css'
+import '../styles/chat.css'
 import Input from '../components/Input'
 import MessagesList from '../components/MessagesList'
 import Header from '../components/Header'
@@ -16,6 +18,8 @@ class Chat extends Component {
     super(props)
     this.state = {
       chatHeader: '',
+      online: false,
+      lastSeen: 'Never',
       roomId: null,
       messagesList: {},
       usersList: [],
@@ -33,10 +37,13 @@ class Chat extends Component {
     this.createMessagesSubscription()
     this.createUserSubscription()
     if (this.props.roomId && !this.state.roomId) {
-      this.setRoom(this.props.roomId, this.props.roomName)
+      this.setRoom(
+        this.props.roomId, this.props.roomName,
+        this.props.lastSeenAt, this.props.online,
+      )
     }
   }
-  setRoom(id, name) {
+  setRoom(id, name, lastSeen, online) {
     this.setState({
       roomId: id,
       messagesList: {},
@@ -45,6 +52,8 @@ class Chat extends Component {
         [id]: 0,
       },
       chatHeader: name,
+      lastSeen,
+      online,
     })
     this.fetchMessages(id)
   }
@@ -151,6 +160,8 @@ class Chat extends Component {
       <div className = 'messages-container'>
         <Header
           text = { this.state.chatHeader }
+          lastSeen = { this.state.lastSeen }
+          online = { this.state.online }
         />
         <MessagesList
           messages = { this.state.messagesList[this.state.roomId] }
@@ -178,7 +189,7 @@ class Chat extends Component {
           setRoomHandler = { this.setRoom }
         />
         { !this.state.roomId && !this.props.roomId &&
-          <Header text = 'Click on user to start dialog' /> }
+          <div className = 'empty-chat'>Click on user to start dialog</div> }
         { this.state.roomId && this.renderMessagesContainer() }
       </div>
     )
@@ -187,11 +198,16 @@ class Chat extends Component {
 Chat.defaultProps = {
   roomId: null,
   roomName: '',
+  lastSeenAt: 'Never',
+  online: false,
 }
 Chat.propTypes = {
   userId: PropTypes.number.isRequired,
   roomId: PropTypes.number,
   roomName: PropTypes.string,
+  lastSeenAt: PropTypes.string,
+  online: PropTypes.bool,
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
