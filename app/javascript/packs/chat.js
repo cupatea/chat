@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import 'typeface-roboto/index.css'
 import 'stylesheets/chat/chat.css'
+import tone from 'media/tone.mp3'
 import Input from '../components/Input'
 import MessagesList from '../components/MessagesList'
 import Header from '../components/Header'
@@ -30,6 +31,7 @@ class Chat extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setRoom = this.setRoom.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.newMessageTone = new Audio(tone)
   }
   componentDidMount() {
     this.fetchUsers()
@@ -78,6 +80,9 @@ class Chat extends Component {
               [room]: 0,
             },
           })
+        }
+        if (this.state.roomId !== room) {
+          this.newMessageTone.play()
         }
         this.setState({
           messagesList: {
