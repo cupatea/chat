@@ -10,13 +10,12 @@ const User = props => (
     <div className = 'user-circle-avatar' >
       { props.name && props.name.charAt(0) }
     </div>
+    { props.newCount > 0 &&
+      <span className = 'user-circle-counter' >
+        { props.newCount }
+      </span>
+    }
     <div className = 'user-info'>
-      <span className = 'user-counter'>
-        { props.sentCount || 0 }
-      </span>
-      <span className = 'user-counter' >
-        { props.newCount || '' }
-      </span>
       { props.online && <span className = 'user-online' /> }
       { !props.online && <span className = 'user-offline' /> }
       <span className = 'user-name' >
@@ -32,7 +31,6 @@ User.defaultProps = {
   online: false,
   lastSeen: 'never',
   current: false,
-  sentCount: 0,
   newCount: 0,
   clicked: () => {},
 }
@@ -43,7 +41,6 @@ User.propTypes = {
   online: PropTypes.bool,
   lastSeen: PropTypes.string,
   current: PropTypes.bool,
-  sentCount: PropTypes.number,
   newCount: PropTypes.number,
   clicked: PropTypes.func,
 }

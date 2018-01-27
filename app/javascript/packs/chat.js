@@ -69,6 +69,10 @@ class Chat extends Component {
               ...this.state.messagesList,
               [room]: [],
             },
+            newMessagesCounter: {
+              ...this.state.newMessagesCounter,
+              [room]: 0,
+            },
           })
         }
         this.setState({
