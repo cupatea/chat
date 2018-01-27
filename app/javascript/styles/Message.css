@@ -1,0 +1,41 @@
+/* Message */
+
+.sended-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.received-container {
+  display: flex;
+  justify-content: flex-start;
+}
+.sended-color {
+  background-color: #0087FA;
+  color: white;
+}
+.received-color {
+  background-color: #F1F0F0;
+  color: black;
+}
+.message {
+  display: flex;
+  min-width: 30px;
+  border-radius: 1.3em;
+  margin: 1px 0;
+  padding: 6px 12px;
+  max-width: 95%
+}
+.text {
+  line-height: 1.28;
+  font-weight: 300;
+  text-align: start;
+  word-wrap: break-word;
+  font-size: 13px;
+}
+.time {
+  align-self: flex-end;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 100;
+  text-align: end;
+  padding-left: 10px;
+}

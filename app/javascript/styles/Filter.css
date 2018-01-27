@@ -1,0 +1,19 @@
+/* Filter */
+.filter {
+  background-color: #fafafa;
+  border-radius: 5px;
+  border-style: none;
+  box-sizing: border-box;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+  margin: 15px 0;
+  padding: 0 28px;
+  color: black;
+  width: 95%;
+  display: none;
+  outline: none;
+  @media (min-width: 768px) {
+    display: inline-block;
+  }
+}

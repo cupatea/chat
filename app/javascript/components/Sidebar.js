@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import User from './User'
 import Filter from './Filter'
+import '../styles/Sidebar.css'
 
 TimeAgo.locale(en)
 const timeAgo = new TimeAgo('en-US')
