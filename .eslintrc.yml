@@ -43,3 +43,7 @@ rules:
 globals:
   App: true
   ActionCable: true
+settings:
+  import/resolver:
+    webpack:
+      config: 'config/webpack/development.js'

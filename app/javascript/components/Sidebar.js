@@ -2,9 +2,10 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import 'stylesheets/chat/Sidebar.css'
 import User from './User'
 import Filter from './Filter'
-import '../styles/Sidebar.css'
+
 
 TimeAgo.locale(en)
 const timeAgo = new TimeAgo('en-US')

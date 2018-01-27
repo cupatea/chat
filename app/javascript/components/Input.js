@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Icon from 'react-icons-kit'
 import { send } from 'react-icons-kit/fa/send'
 import { attachment } from 'react-icons-kit/icomoon/attachment'
-import '../styles/Input.css'
+import 'stylesheets/chat/Input.css'
 
 class Input extends Component {
   handleEnterKeyPress(event) {

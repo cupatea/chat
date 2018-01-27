@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../styles/Message.css'
+import 'stylesheets/chat/Message.css'
 
 const Message = props => (
   <div className = { props.own ? 'sended-container' : 'received-container' } >

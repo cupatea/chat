@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../styles/User.css'
+import 'stylesheets/chat/User.css'
 
 const User = props => (
   <button

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../styles/Header.css'
+import 'stylesheets/chat/Header.css'
 
 const Header = props => (
   <div className = 'header-container' >
