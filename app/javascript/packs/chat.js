@@ -57,6 +57,10 @@ class Chat extends Component {
     })
     this.fetchMessages(id)
   }
+  scrollToBottom() {
+    this.messagesList.scrollIntoView(false)
+    this.textInput.focus()
+  }
   createMessagesSubscription() {
     App.messages = App.cable.subscriptions.create('MessagesChannel', {
       received: (data) => {
@@ -108,6 +112,7 @@ class Chat extends Component {
             [id]: response.data,
           },
         })
+        this.scrollToBottom()
       })
       // .catch(error => console.error(error))
   }
@@ -156,6 +161,7 @@ class Chat extends Component {
             [id]: '',
           },
         })
+        this.scrollToBottom()
       })
   }
 
@@ -170,6 +176,7 @@ class Chat extends Component {
         <MessagesList
           messages = { this.state.messagesList[this.state.roomId] }
           userId = { this.props.userId }
+          ref = { (list) => { if (list) { this.messagesList = list.messagesList } } }
         />
         <Input
           placeholder = 'Write a message...'
@@ -177,7 +184,7 @@ class Chat extends Component {
           submitHandler = { this.handleSubmit }
           inputChangeHandler = { this.handleInputChange }
           roomId = { this.state.roomId }
-          ref = { (child) => { if (child) { child.textInput.focus() } } }
+          ref = { (child) => { if (child) { this.textInput = child.textInput } } }
         />
       </div>
     )
@@ -211,7 +218,6 @@ Chat.propTypes = {
   roomName: PropTypes.string,
   lastSeenAt: PropTypes.string,
   online: PropTypes.bool,
-
 }
 
 document.addEventListener('DOMContentLoaded', () => {

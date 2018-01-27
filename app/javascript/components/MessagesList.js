@@ -12,15 +12,6 @@ class MessagesList extends Component {
       `${hours.length < 2 ? `0${hours}` : hours}:${minutes.length < 2 ? `0${minutes}` : minutes}`
     )
   }
-  componentDidMount() {
-    this.scrollToBottom()
-  }
-  componentDidUpdate() {
-    this.scrollToBottom()
-  }
-  scrollToBottom() {
-    this.messagesList.scrollIntoView(false)
-  }
   renderMessages() {
     return this.props.messages.map(message => (
       <Message
@@ -50,8 +41,10 @@ MessagesList.defaultProps = {
 
 MessagesList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
     id: PropTypes.number,
+    body: PropTypes.string,
+    addresser_id: PropTypes.number,
+    addressee_id: PropTypes.number,
   })),
   userId: PropTypes.number,
 }
