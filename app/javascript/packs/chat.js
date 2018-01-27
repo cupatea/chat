@@ -81,7 +81,7 @@ class Chat extends Component {
             },
           })
         }
-        if (this.state.roomId !== room) {
+        if (this.state.roomId !== room || !document.hasFocus()) {
           this.newMessageTone.play()
         }
         this.setState({
@@ -92,7 +92,10 @@ class Chat extends Component {
           newMessagesCounter: {
             ...this.state.newMessagesCounter,
             [room]: this.state.newMessagesCounter[room] +
-            (room === this.state.roomId || data.addresser_id === this.props.userId ? 0 : 1),
+            ((room === this.state.roomId || data.addresser_id === this.props.userId) &&
+              document.hasFocus()
+              ? 0
+              : 1),
           },
         })
       },
@@ -144,6 +147,10 @@ class Chat extends Component {
       inputText: {
         ...this.state.inputText,
         [this.state.roomId]: text,
+      },
+      newMessagesCounter: {
+        ...this.state.newMessagesCounter,
+        [this.state.roomId]: 0,
       },
     })
   }
