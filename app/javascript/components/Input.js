@@ -8,7 +8,7 @@ import 'stylesheets/chat/Input.css'
 
 class Input extends Component {
   handleEnterKeyPress(event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && !event.shiftKey) {
       event.preventDefault()
       this.handleSubmit()
     }
