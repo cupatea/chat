@@ -22,7 +22,9 @@
   border-radius: 1.3em;
   margin: 1px 0;
   padding: 6px 12px;
-  max-width: 95%
+  max-width: 95%;
+  word-break:break-all;
+  word-wrap: break-word;
 }
 .text {
   line-height: 1.28;
@@ -32,6 +34,7 @@
   font-size: 13px;
 }
 .time {
+  min-width: 34px;
   align-self: flex-end;
   font-size: 10px;
   font-style: italic;

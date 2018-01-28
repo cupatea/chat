@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Icon from 'react-icons-kit'
 import { send } from 'react-icons-kit/fa/send'
 import { attachment } from 'react-icons-kit/icomoon/attachment'
+import TextareaAutosize from 'react-autosize-textarea'
 import 'stylesheets/chat/Input.css'
 
 class Input extends Component {
@@ -19,26 +20,35 @@ class Input extends Component {
   }
   render() {
     return (
-      <div>
-        <button
-          className = 'button attachment'
-        >
-          <Icon icon = { attachment } />
-        </button>
-        <input
-          className = 'input-container'
-          ref = { (input) => { this.textInput = input } }
-          placeholder = { this.props.placeholder }
-          value = { this.props.text }
-          onChange = { e => this.props.inputChangeHandler(e.target.value) }
-          onKeyUp = { e => this.handleEnterKeyPress(e) }
-        />
-        <button
-          className = 'button send'
-          onClick = { () => this.handleSubmit() }
-        >
-          <Icon icon = { send } />
-        </button>
+      <div className = 'input-container'>
+        <div className = 'button-container'>
+          <button
+            className = 'button attachment'
+          >
+            <Icon icon = { attachment } />
+          </button>
+        </div>
+        <div className = 'textarea-container'>
+          <TextareaAutosize
+            className = 'textarea'
+            autoFocus = 'true'
+            placeholder = { this.props.placeholder }
+            value = { this.props.text }
+            onChange = { e => this.props.inputChangeHandler(e.target.value) }
+            onKeyDown = { e => this.handleEnterKeyPress(e) }
+          />
+        </div>
+        <div className = 'button-container'>
+          { this.props.text.length }
+        </div>
+        <div className = 'button-container'>
+          <button
+            className = 'button send'
+            onClick = { () => this.handleSubmit() }
+          >
+            <Icon icon = { send } />
+          </button>
+        </div>
       </div>
     )
   }

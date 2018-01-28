@@ -17,9 +17,12 @@
 .messages-container {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-left: 77px;
+  width: calc(100% - 50px);
   @media (min-width: 768px) {
+    width: calc(100% - 315px);
     margin-left: 315px;
   }
 }

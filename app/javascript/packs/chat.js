@@ -71,7 +71,6 @@ class Chat extends Component {
   }
   scrollToBottom() {
     this.messagesList.scrollIntoView(false)
-    this.textInput.focus()
   }
   createMessagesSubscription() {
     App.messages = App.cable.subscriptions.create('MessagesChannel', {
@@ -209,7 +208,6 @@ class Chat extends Component {
           submitHandler = { this.handleSubmit }
           inputChangeHandler = { this.handleInputChange }
           roomId = { this.state.roomId }
-          ref = { (child) => { if (child) { this.textInput = child.textInput } } }
         />
       </div>
     )
